@@ -4,10 +4,11 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _senhaController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         color: Colors.blue,
@@ -31,7 +32,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   TextField(
-                      controller: _senhaController,
+                      controller: _passwordController,
                       obscureText: true,
                       decoration: const InputDecoration(hintText: 'Senha')),
                   const SizedBox(height: 16),

@@ -1,4 +1,4 @@
-import 'package:fisrt_app_flutter/utils/constants/Constants.dart';
+import 'package:fisrt_app_flutter/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {

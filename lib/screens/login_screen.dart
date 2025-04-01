@@ -1,3 +1,4 @@
+import 'package:fisrt_app_flutter/utils/constants/Constants.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -8,51 +9,55 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         color: Colors.blue,
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(Constants.spacing_16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(Constants.spacing_16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(Constants.spacing_16),
               ),
               child: Column(
                 children: [
-                  const FlutterLogo(size: 76),
-                  const SizedBox(height: 16),
+                  const FlutterLogo(size: Constants.spacing_76),
+                  const SizedBox(height: Constants.spacing_16),
                   TextField(
                     controller: _emailController,
-                    decoration: const InputDecoration(hintText: 'Email'),
+                    decoration: const InputDecoration(
+                      hintText: Constants.emailHint,
+                    ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: Constants.spacing_16),
                   TextField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(hintText: 'Senha')),
-                  const SizedBox(height: 16),
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      hintText: Constants.passwordHint,
+                    ),
+                  ),
+                  const SizedBox(height: Constants.spacing_16),
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text("Entrar"),
+                    child: const Text(Constants.loginApp),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: Constants.spacing_16),
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text("Entrar com o google"),
+                    child: const Text(Constants.loginAppWithGoogle),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: Constants.spacing_16),
                   TextButton(
                     onPressed: () {},
-                    child: const Text("Criar conta"),
+                    child: const Text(Constants.createAccount),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

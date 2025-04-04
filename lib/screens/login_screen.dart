@@ -9,7 +9,6 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,20 +44,17 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: Constants.spacing_16),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => (),
                     child: const Text(Constants.loginApp),
                   ),
                   const SizedBox(height: Constants.spacing_16),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => (),
                     child: const Text(Constants.loginAppWithGoogle),
                   ),
                   const SizedBox(height: Constants.spacing_16),
                   TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
-                      // Navigator.pushNamed(context, '/register');
-                    },
+                    onPressed: () => goToRegisterScreen(context),
                     child: const Text(Constants.createAccount),
                   ),
                 ],
@@ -69,4 +65,9 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+
+  void goToRegisterScreen(BuildContext context) => Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => RegisterScreen()),
+  );
 }

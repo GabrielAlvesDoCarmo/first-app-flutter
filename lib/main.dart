@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fisrt_app_flutter/screens/home_screen.dart';
 import 'package:fisrt_app_flutter/screens/login_screen.dart';
 import 'package:fisrt_app_flutter/utils/constants/Constants.dart';
 import 'package:flutter/material.dart';
@@ -32,14 +34,37 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.blue,
+        useMaterial3: true
       ),
       home: Container(
         color: Colors.blue,
         child: SafeArea(
-          child: LoginScreen(),
+          child: const RouterScreen(),
         ),
       ),
     );
+  }
+}
+
+
+class RouterScreen extends StatelessWidget {
+  const RouterScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(stream: FirebaseAuth.instance.userChanges(), builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      } else {
+        if (snapshot.hasData) {
+          return HomeScreen(user: snapshot.data!);
+        } else {
+          return LoginScreen();
+        }
+      }
+    });
   }
 }

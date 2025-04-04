@@ -1,6 +1,5 @@
-
-import 'package:fisrt_app_flutter/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
+import '../utils/constants/Constants.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});

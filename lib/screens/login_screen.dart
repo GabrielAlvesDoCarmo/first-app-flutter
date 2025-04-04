@@ -1,6 +1,7 @@
 import 'package:fisrt_app_flutter/screens/register_screen.dart';
-import 'package:fisrt_app_flutter/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/constants/Constants.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});

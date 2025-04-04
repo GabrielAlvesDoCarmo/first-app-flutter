@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fisrt_app_flutter/screens/login_screen.dart';
-import 'package:fisrt_app_flutter/utils/constants/constants.dart';
+import 'package:fisrt_app_flutter/utils/constants/Constants.dart';
 import 'package:flutter/material.dart';
 
 

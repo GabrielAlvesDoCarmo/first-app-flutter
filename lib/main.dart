@@ -1,22 +1,27 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fisrt_app_flutter/screens/login_screen.dart';
+import 'package:fisrt_app_flutter/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await initFirebase();
+  runApp(const MyApp());
+}
+
+Future<void> initFirebase() async {
   await Firebase.initializeApp(
     options: FirebaseOptions(
-      apiKey: "AIzaSyCud_H563iv6VsByOK6vJvrAKAP1g3QzPM",
-      appId: "1:976374869459:ios:9b26660a1d97bd123ed326",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      projectId: "first-app-flutter-95369",
-      // authDomain: "YOUR_AUTH_DOMAIN",
-      // databaseURL: "YOUR_DATABASE_URL",
-      // storageBucket: "YOUR_STORAGE_BUCKET",
+      apiKey: Constants.apiKey,
+      appId: Constants.appId,
+      messagingSenderId: Constants.messagingSenderId,
+      projectId: Constants.projectId,
+      // authDomain: Constants.authDomain,
+      // databaseURL: Constants.databaseURL,
+      // storageBucket: Constants.storageBucket,
     ),
   );
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

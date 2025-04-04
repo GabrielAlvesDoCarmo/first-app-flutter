@@ -1,3 +1,4 @@
+import 'package:fisrt_app_flutter/screens/register_screen.dart';
 import 'package:fisrt_app_flutter/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,10 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: Constants.spacing_16),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
+                      // Navigator.pushNamed(context, '/register');
+                    },
                     child: const Text(Constants.createAccount),
                   ),
                 ],

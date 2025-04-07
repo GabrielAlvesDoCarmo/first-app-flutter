@@ -1,4 +1,5 @@
 import 'package:fisrt_app_flutter/screens/register_screen.dart';
+import 'package:fisrt_app_flutter/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import '../utils/constants/Constants.dart';
 
@@ -7,6 +8,7 @@ class LoginScreen extends StatelessWidget {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: Constants.spacing_16),
                   ElevatedButton(
-                    onPressed: () =>(),
+                    onPressed: () => loginApp(context),
                     child: const Text(Constants.loginApp),
                   ),
                   const SizedBox(height: Constants.spacing_16),
@@ -69,6 +71,21 @@ class LoginScreen extends StatelessWidget {
     context,
     MaterialPageRoute(builder: (context) => RegisterScreen()),
   );
+
+  loginApp(BuildContext context) {
+    authService
+        .login(email: _emailController.text, password: _passwordController.text)
+        .then((String? error) {
+          if (!context.mounted) return;
+          if (error != null) {
+            final snackBar = SnackBar(
+              content: Text(error),
+              backgroundColor: Colors.red,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        });
+  }
 
   // navigateToHomeScreen(BuildContext context) => Navigator.push(
   //   context,

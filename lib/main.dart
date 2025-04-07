@@ -19,7 +19,7 @@ Future<void> initFirebase() async {
       appId: Constants.appId,
       messagingSenderId: Constants.messagingSenderId,
       projectId: Constants.projectId,
-      // authDomain: Constants.authDomain,
+      // authDomain: Constants.authDomain,0..friws
       // databaseURL: Constants.databaseURL,
       // storageBucket: Constants.storageBucket,
     ),

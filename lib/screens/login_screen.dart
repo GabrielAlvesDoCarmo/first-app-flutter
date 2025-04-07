@@ -1,6 +1,5 @@
 import 'package:fisrt_app_flutter/screens/register_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../utils/constants/Constants.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -44,9 +43,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: Constants.spacing_16),
                   ElevatedButton(
-                    onPressed: () {
-
-                    },
+                    onPressed: () =>(),
                     child: const Text(Constants.loginApp),
                   ),
                   const SizedBox(height: Constants.spacing_16),
@@ -68,8 +65,13 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void goToRegisterScreen(BuildContext context) => Navigator.push(
+  goToRegisterScreen(BuildContext context) => Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => RegisterScreen()),
   );
+
+  // navigateToHomeScreen(BuildContext context) => Navigator.push(
+  //   context,
+  //   MaterialPageRoute(builder: (context) => HomeScreen(user: null)),
+  // );
 }

@@ -1,3 +1,4 @@
+import 'package:fisrt_app_flutter/screens/modal/reset_password_modal.dart';
 import 'package:fisrt_app_flutter/screens/register_screen.dart';
 import 'package:fisrt_app_flutter/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,11 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () => goToRegisterScreen(context),
                     child: const Text(Constants.createAccount),
                   ),
+                  TextButton(onPressed: (){
+                    showDialog(context: context, builder: (BuildContext context){
+                      return const PasswordResetModal();
+                    });
+                  }, child: const Text("Recuperar senha!"))
                 ],
               ),
             ),
@@ -86,9 +92,4 @@ class LoginScreen extends StatelessWidget {
           }
         });
   }
-
-  // navigateToHomeScreen(BuildContext context) => Navigator.push(
-  //   context,
-  //   MaterialPageRoute(builder: (context) => HomeScreen(user: null)),
-  // );
 }

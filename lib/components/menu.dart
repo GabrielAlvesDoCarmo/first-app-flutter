@@ -1,4 +1,5 @@
 import 'package:fisrt_app_flutter/screens/modal/delete_account.dart';
+import 'package:fisrt_app_flutter/screens/modal/reset_password_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -36,6 +37,18 @@ class Menu extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return const DeleteAccount();
+                }
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.password),
+            title: const Text("Alterar senha"),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const PasswordResetModal();
                 }
               );
             },

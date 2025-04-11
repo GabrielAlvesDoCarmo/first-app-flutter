@@ -64,5 +64,6 @@ class _PasswordResetModalState extends State<PasswordResetModal> {
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
+        return null;
       });
 }

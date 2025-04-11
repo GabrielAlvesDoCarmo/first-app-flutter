@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fisrt_app_flutter/screens/modal/reset_password_modal.dart';
 import 'package:fisrt_app_flutter/screens/register_screen.dart';
 import 'package:fisrt_app_flutter/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../utils/constants/Constants.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,7 +11,7 @@ class LoginScreen extends StatelessWidget {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  AuthService authService = AuthService();
+  final AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: Constants.spacing_16),
                   ElevatedButton(
-                    onPressed: () => (),
+                    onPressed: () => singInWithGoogle(context),
                     child: const Text(Constants.loginAppWithGoogle),
                   ),
                   const SizedBox(height: Constants.spacing_16),
@@ -59,11 +61,17 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () => goToRegisterScreen(context),
                     child: const Text(Constants.createAccount),
                   ),
-                  TextButton(onPressed: (){
-                    showDialog(context: context, builder: (BuildContext context){
-                      return const PasswordResetModal();
-                    });
-                  }, child: const Text("Recuperar senha!"))
+                  TextButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const PasswordResetModal();
+                        },
+                      );
+                    },
+                    child: const Text("Recuperar senha!"),
+                  ),
                 ],
               ),
             ),
@@ -91,5 +99,17 @@ class LoginScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         });
+  }
+
+  Future<UserCredential> singInWithGoogle(BuildContext context) async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    return await FirebaseAuth.instance.signInWithCredential(credential).then((UserCredential value){
+      return value;
+    });
   }
 }

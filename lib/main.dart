@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fisrt_app_flutter/utils/constants/Constants.dart';
 import 'package:fisrt_app_flutter/utils/router/router_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,14 @@ import 'package:flutter/material.dart';
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await initFirebase();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
+}
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('### Handling a background message');
 }
 
 Future<void> initFirebase() async {

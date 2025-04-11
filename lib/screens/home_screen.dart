@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fisrt_app_flutter/utils/helpers/hour_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -24,6 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    setupFCM();
+    refresh();
   }
 
   @override
@@ -208,9 +212,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  refresh() async{
+  refresh() async {
     List<Hour> list = [];
-    QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore.collection(widget.user.uid).get();
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await _firestore.collection(widget.user.uid).get();
     for (var doc in snapshot.docs) {
       list.add(Hour.fromMap(doc.data()));
     }
@@ -222,5 +227,55 @@ class _HomeScreenState extends State<HomeScreen> {
   remove(Hour model) {
     _firestore.collection(widget.user.uid).doc(model.id).delete();
     refresh();
+  }
+
+  Future<void> setupFCM() async {
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print('FCM Token: $fcmToken');
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    messaging.onTokenRefresh.listen((token) {
+      print('FCM Token atualizado: $token');
+    });
+    await requestPermissions(messaging);
+    await listenerFCM();
+
+
+    await openMessaging();
+  }
+
+  Future<void> requestPermissions(FirebaseMessaging messaging) async {
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: true,
+      badge: true,
+      carPlay: true,
+      criticalAlert: true,
+      provisional: true,
+      sound: true,
+    );
+    if(settings.authorizationStatus == AuthorizationStatus.authorized){
+      print("Permissao concedida");
+    }else if(settings.authorizationStatus == AuthorizationStatus.provisional){
+      print("Permissao provisoria");
+    }else{
+      print("Permissao negada");
+    }
+  }
+
+  Future<void> listenerFCM() async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('### Mensagem recebida Titulo: ${message.notification?.title}');
+      print('### Mensagem recebida Corpo: ${message.notification?.body}');
+      print('### Mensagem recebida Data: ${message.data}');
+      if (message.notification != null) {
+        print('### Mensagem recebida : ${message.notification}');
+      }
+    });
+  }
+
+  Future<void> openMessaging() async {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('### Mensagem aberta: ${message.notification}');
+    });
   }
 }

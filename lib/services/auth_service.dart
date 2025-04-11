@@ -70,8 +70,10 @@ class AuthService {
     }
   }
 
-  Future<String?> excludedAccount() async {
+  Future<String?> excludedAccount({required String password}) async {
     try {
+      AuthCredential credential = EmailAuthProvider.credential(email: _firebaseAuth.currentUser?.email ?? "", password: password);
+      await _firebaseAuth.currentUser?.reauthenticateWithCredential(credential);
       await _firebaseAuth.currentUser?.delete();
       return null;
     } on FirebaseAuthException catch (e) {

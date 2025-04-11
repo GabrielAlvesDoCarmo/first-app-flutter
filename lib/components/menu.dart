@@ -1,3 +1,4 @@
+import 'package:fisrt_app_flutter/screens/modal/delete_account.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -5,8 +6,9 @@ import '../services/auth_service.dart';
 
 class Menu extends StatelessWidget {
   final User user;
+  final AuthService _authService = AuthService();
 
-  const Menu({super.key, required this.user});
+  Menu({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +20,33 @@ class Menu extends StatelessWidget {
             accountEmail: Text(user.email ?? ""),
             currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.white,
-              child: Icon(
-                Icons.manage_accounts_rounded,
-                size: 48,
-              ),
+              child: Icon(Icons.manage_accounts_rounded, size: 48),
             ),
           ),
           ListTile(
             leading: Icon(Icons.logout),
             title: const Text("Sair"),
-            onTap: () => AuthService().logout(),
-          )
+            onTap: () => _authService.logout(),
+          ),
+          ListTile(
+            leading: Icon(Icons.delete),
+            title: const Text("Excluir conta"),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const DeleteAccount();
+                }
+              );
+            },
+          ),
         ],
       ),
     );
+  }
+
+  Future<void> deleteAccount() async {
+    await _authService.excludedAccount(password: "123123123");
+    await _authService.logout();
   }
 }
